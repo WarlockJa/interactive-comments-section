@@ -1,0 +1,8 @@
+.replies {
+    padding-left: 1em;
+    border-left: 2px solid var(--clr-border-reply);
+
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}

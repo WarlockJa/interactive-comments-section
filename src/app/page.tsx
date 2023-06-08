@@ -1,95 +1,39 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+import styles from "./page.module.css";
+import React from "react";
+import { ICommentData, initDB } from "./utils/initDB";
+import StoreInitializer from "./Components/StoreInitializer";
+import Comment from "./Components/Comment";
 
-export default function Home() {
-  return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
+export default async function Home() {
+    // initializing DB connection
+    const data = await initDB();
+
+    // handling errors
+    if (!data) throw new Error("There was an error connecting to the database");
+
+    // initializing server side store
+    // useStore.setState({ commentsThreadId: data.id });
+
+    // processing fetched data
+    const content = data ? (
+        data.comments
+            .sort((a, b) => (a.score < b.score ? 1 : -1))
+            .map((item: ICommentData) => (
+                <Comment key={item.id} commentData={item} />
+            ))
+    ) : (
+        // a plug for the scenario where DB contains valid object but it is empty
+        // in this particular project it can never happen
+        <h1>Data not found</h1>
+    );
+    return (
+        <main className={styles.main}>
+            {/* passing thread id and current user info to the client-side store */}
+            <StoreInitializer
+                commentsThreadId={data.id}
+                currentUserData={data.currentUser}
             />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+            {content}
+        </main>
+    );
 }

@@ -1,0 +1,162 @@
+.card {
+    padding: 1em;
+    border-radius: 8px;
+    background-color: var(--clr-bg-card);
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto;
+
+    .card__header {
+        grid-row: 1 / 2;
+        grid-column: 1 / 3;
+
+        display: flex;
+        align-items: center;
+        gap: 1em;
+
+        .card__header__imgWrapper {
+            max-width: 2em;
+
+            .card__header--avatar {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
+        }
+
+        .card__header--username {
+            font-weight: 500;
+            color: var(--clr-font-cardAuthorName);
+            margin: 0;
+        }
+
+        .card__header--ownerFlag {
+            background-color: var(--clr-bg-ownerIndicator);
+            color: var(--clr-font-ownerIndicator);
+            padding: 0.1em 0.5em 0.25em 0.5em;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border-radius: 2px;
+        }
+
+        .card__header--date {
+            color: var(--clr-font-main);
+        }
+    }
+
+    .card__comment {
+        grid-row: 2 / 3;
+        grid-column: 1 / 3;
+
+        color: var(--clr-font-main);
+        line-height: 1.5;
+        margin: 0.5em 0;
+
+        span {
+            color: var(--clr-font-cardUsername);
+            font-weight: 500;
+        }
+    }
+
+    .card__rating {
+        grid-column: 1 / 2;
+        grid-row: 3 / 4;
+        display: flex;
+        align-items: center;
+
+        .card__rating__wrapper {
+            padding: 0.6em 0.7em;
+            background-color: var(--clr-bg-cardRating);
+            border-radius: 10px;
+            color: var(--clr-font-cardRating);
+            font-weight: 500;
+
+            display: flex;
+            align-items: center;
+
+            .card__rating--button {
+                border: transparent;
+                outline: transparent;
+                background-color: transparent;
+                margin-bottom: 0.2em;
+                cursor: pointer;
+
+                .svg {
+                    filter: var(--clr-filter-cardRating);
+                    transition: filter 200ms ease;
+                    vertical-align: middle;
+                }
+            }
+            // this CSS is left for future design change with the idea of keyboard only navigation
+            // right now there is no design feature to showcase element selection
+            // recommended option is using border highlight on element focus
+            // .card__rating--button:focus,
+            .card__rating--button:hover {
+                .svg {
+                    filter: var(--clr-filter-cardRating-hover);
+                }
+            }
+            .selected {
+                .svg {
+                    filter: var(--clr-filter-cardRating-hover);
+                }
+            }
+
+            .card__rating--rating {
+                min-width: 3ch;
+                text-align: center;
+            }
+        }
+    }
+
+    .card__interact {
+        grid-column: 2 / 3;
+        grid-row: 3 / 4;
+
+        margin: auto 0;
+        margin-left: auto;
+
+        .card__interact--button {
+            border: transparent;
+            outline: transparent;
+            background-color: transparent;
+            transition: opacity 200ms ease;
+            cursor: pointer;
+
+            font-size: 1rem;
+            font-weight: 700;
+
+            .card__interact--replyIcon,
+            .card__interact--editIcon,
+            .card__interact--deleteIcon {
+                margin-right: 0.3em;
+                margin-bottom: 0.1em;
+                transition: filter 200ms ease;
+                vertical-align: middle;
+            }
+
+            .card__interact--replyIcon,
+            .card__interact--editIcon {
+                filter: var(--clr-filter-cardReplyEdit);
+            }
+
+            .card__interact--deleteIcon {
+                filter: var(--clr-filter-cardDelete);
+            }
+        }
+        .card__interact--button:hover,
+        .card__interact--button:focus {
+            opacity: 0.5;
+        }
+        .card__interact--buttonDelete {
+            color: var(--clr-font-buttonDelete);
+        }
+        .card__interact--buttonEdit {
+            color: var(--clr-font-buttonEdit);
+        }
+        .card__interact--buttonReply {
+            color: var(--clr-font-buttonReply);
+        }
+    }
+}
