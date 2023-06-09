@@ -1,9 +1,9 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 import { prisma } from "../../../../db/globalPrisma";
 import { IUserRatings } from "../../utils/initDB";
 
 export interface IChangeRatingBody {
-    id: string;
+    userId: string;
     postId: string;
     rating: number;
 }
@@ -39,44 +39,45 @@ export const getNewRatingsArray = (
     return result;
 };
 
-export async function PUT(req: NextRequest, res: NextResponse) {
+export async function PUT(req: NextRequest) {
     const body: IChangeRatingBody = await req.json();
 
+    if (!body.postId)
+        return new Response("Comment ID required", { status: 400 });
+
     try {
-        // looking for a thread with given id
-        // in this example project there is only one thread
-        const data = await prisma.interactive_comment_section.findFirst({
+        // looking for a user with given id
+        // altough in this example project there is only one possible user
+        const data = await prisma.user.findFirst({
             where: {
-                id: body.id,
+                id: body.userId,
             },
             select: {
-                currentUser: true,
+                userRatings: true,
             },
         });
 
-        // response if no thread found
+        // response if no user found
         if (!data)
-            return new Response(`Thread with id: ${body.id} not found`, {
+            return new Response(`User with id: ${body.userId} not found`, {
                 status: 400,
             });
 
         // preparing new ratings array to be stored in DB
         const newCurrentRatingsArray: IUserRatings[] = getNewRatingsArray(
             body,
-            data.currentUser.userRatings
+            data.userRatings
         );
 
         // updating DB with new ratings array
-        await prisma.interactive_comment_section.update({
+        await prisma.user.update({
             where: {
-                id: body.id,
+                id: body.userId,
             },
             data: {
-                currentUser: {
-                    update: {
-                        // @ts-ignore // inexplicable prisma ts error
-                        userRatings: newCurrentRatingsArray,
-                    },
+                userRatings: {
+                    // @ts-ignore // inexplicable prisma ts error
+                    set: newCurrentRatingsArray,
                 },
             },
         });

@@ -7,17 +7,17 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Reset {
+model reset {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
   resetTimer DateTime @default(now())
 }
 
-model User {
+model user {
   id          String           @id @default(auto()) @map("_id") @db.ObjectId
   username    String           @unique
   image       UserAvatarImages
-  Post        Post[]           @relation("PostAuthor")
-  UserRatings UserRatings[]
+  post        post[]           @relation("PostAuthor")
+  userRatings UserRatings[]
 }
 
 type UserRatings {
@@ -30,17 +30,17 @@ type UserAvatarImages {
   webp String
 }
 
-model Post {
+model post {
   id              String   @id @default(auto()) @map("_id") @db.ObjectId
   content         String
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
   score           Int      @default(0)
-  user            User     @relation("PostAuthor", fields: [userId], references: [id])
-  userId          String   @db.ObjectId
+  author          user     @relation("PostAuthor", fields: [authorId], references: [id])
+  authorId        String   @db.ObjectId
   repliesToPostId String?  @db.ObjectId
-  repliesToPost   Post?    @relation("CommentReplies", fields: [repliesToPostId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  replies         Post[]   @relation("CommentReplies")
+  repliesToPost   post?    @relation("CommentReplies", fields: [repliesToPostId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  replies         post[]   @relation("CommentReplies")
 }
 
 // type InteractiveCommentSectionComments {

@@ -1,4 +1,5 @@
 .card {
+    margin-top: 1em;
     padding: 1em;
     border-radius: 8px;
     background-color: var(--clr-bg-card);
@@ -68,7 +69,7 @@
         .card__rating__wrapper {
             padding: 0.6em 0.7em;
             background-color: var(--clr-bg-cardRating);
-            border-radius: 10px;
+            border-radius: var(--card-border-radius-rating);
             color: var(--clr-font-cardRating);
             font-weight: 500;
 
@@ -158,5 +159,10 @@
         .card__interact--buttonReply {
             color: var(--clr-font-buttonReply);
         }
+    }
+
+    .card__error {
+        white-space: pre-line;
+        word-wrap: break-word;
     }
 }

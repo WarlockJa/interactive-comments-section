@@ -1,0 +1,51 @@
+.cardSkeleton {
+    position: relative;
+
+    .cardSkeleton__header {
+        .cardSkeleton__header--image {
+            width: 2em;
+            height: 2em;
+            border-radius: 50%;
+        }
+
+        .cardSkeleton__header--username {
+            width: 10ch;
+        }
+
+        .cardSkeleton__header--date {
+            width: 12ch;
+        }
+    }
+
+    .cardSkeleton__comment {
+        .cardSkeleton__comment--line {
+            width: 100%;
+            margin-top: 0.5em;
+        }
+    }
+
+    .cardSkeleton__rating {
+        height: 2.5em;
+        width: 6em;
+        border-radius: var(--card-border-radius-rating);
+    }
+
+    .cardSkeleton__interact {
+        height: 2em;
+        width: 6em;
+    }
+
+    .cardSkeleton--flashAnimation {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+}
+
+.cardSkeleton--item {
+    background-color: var(--clr-bg-skeletalLoading);
+    height: 1.2rem;
+    border-radius: 4px;
+}

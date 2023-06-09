@@ -15,6 +15,11 @@
     --clr-font-main: var(--GrayishBlue);
     --clr-bg-main: var(--VerylightGray);
     --clr-bg-card: var(--White);
+
+    --clr-card-skeleton: 255;
+    --card-border-radius-rating: 10px;
+    --clr-bg-skeletalLoading: #e2e5e7;
+
     --clr-bg-ownerIndicator: var(--Moderateblue);
     --clr-font-ownerIndicator: var(--White);
     --clr-font-cardAuthorName: var(--Darkblue);

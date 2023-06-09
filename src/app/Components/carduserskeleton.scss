@@ -1,0 +1,28 @@
+.card__cardUserSkeleton {
+    display: flex;
+    align-items: center;
+    position: relative;
+    gap: 1em;
+
+    .card__cardUserSkeleton--image {
+        height: 2em;
+        width: 2em;
+        border-radius: 50%;
+        background-color: var(--clr-bg-skeletalLoading);
+    }
+
+    .card__header--username {
+        background-color: var(--clr-bg-skeletalLoading);
+        height: 1.2em;
+        width: 10ch;
+        border-radius: 4px;
+    }
+
+    .card__cardUserSkeleton--flashAnimation {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+}

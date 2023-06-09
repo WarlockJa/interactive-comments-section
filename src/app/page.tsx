@@ -6,17 +6,19 @@ import Comment from "./Components/Comment";
 
 export default async function Home() {
     // initializing DB connection
-    const data = await initDB();
+    const { currentUser, comments } = await initDB();
 
     // handling errors
-    if (!data) throw new Error("There was an error connecting to the database");
+    if (!currentUser || !comments)
+        throw new Error("There was an error connecting to the database");
 
     // initializing server side store
     // useStore.setState({ commentsThreadId: data.id });
 
     // processing fetched data
-    const content = data ? (
-        data.comments
+    const content = comments ? (
+        comments
+            .filter((comment) => !comment.repliesToPostId)
             .sort((a, b) => (a.score < b.score ? 1 : -1))
             .map((item: ICommentData) => (
                 <Comment key={item.id} commentData={item} />
@@ -28,11 +30,8 @@ export default async function Home() {
     );
     return (
         <main className={styles.main}>
-            {/* passing thread id and current user info to the client-side store */}
-            <StoreInitializer
-                commentsThreadId={data.id}
-                currentUserData={data.currentUser}
-            />
+            {/* passing current user info to the client-side store */}
+            <StoreInitializer currentUserData={currentUser} />
             {content}
         </main>
     );

@@ -14,9 +14,8 @@ const Comment = ({ commentData }: { commentData: ICommentData }) => {
     const content = (
         <>
             <Card cardData={commentData} />
-            {commentData.replies && commentData.replies.length > 0 && (
-                <Replies repliesArray={commentData.replies} />
-            )}
+            {/* normally replies would be hidden and fetched on demand */}
+            <Replies cardId={commentData.id} />
             {activePost === commentData.id && <AddComment />}
         </>
     );

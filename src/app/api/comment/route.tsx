@@ -9,7 +9,7 @@ export interface IHandleCommentPost {
     user: IUserData;
 }
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
     const body: IHandleCommentPost = await req.json();
 
     try {

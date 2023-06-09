@@ -1,5 +1,4 @@
-import { IUserRatings } from "@/app/utils/initDB";
-import { ICurrentUser } from "@/app/utils/initDB";
+import { IUserData, IUserRatings } from "@/app/utils/initDB";
 import { create } from "zustand";
 
 interface IStore {
@@ -11,7 +10,7 @@ interface IStore {
     setCommentText: (commentText: string) => void;
     commentsThreadId: string;
     // setCommentsThreadId: (commentsThreadId: string) => void;
-    currentUserData: ICurrentUser;
+    currentUserData: IUserData;
     // setCurrentUserData: (currentUserData: ICurrentUser) => void;
     setCurrentUserRatings: (currentUserRatings: IUserRatings[]) => void;
 }
@@ -46,6 +45,7 @@ const useStore = create<IStore>((set) => ({
         })),
 
     currentUserData: {
+        id: "",
         image: {
             png: "",
             webp: "",
