@@ -2,28 +2,41 @@
 import "./replies.scss";
 import Card from "./Card";
 import AddComment from "./AddComment";
-import React from "react";
+import React, { useEffect } from "react";
 import useStore from "@/store/store";
 import { ICommentData } from "../utils/initDB";
 import useFetch from "../hooks/useFetch";
 import CardSkeleton from "./CardSkeleton";
 
 const Replies = ({ cardId }: { cardId: string }) => {
+    // getting active post information from the client-side store
+    const { activePost } = useStore();
+    const { id: currentUserId } = useStore((state) => state.currentUserData);
+
+    useEffect(() => {}, []);
+
+    //refresh replies state
+    // const [refreshRepliesFlag, setRefreshRepliesFlag] = useState(true);
+    // if (refreshRepliesBranchId === cardId) setRefreshRepliesFlag(true);
+
     // api reply count data
     const { data: replyCount } = useFetch({
         api: "/api/reply",
         request: { method: "PUT", body: JSON.stringify({ id: cardId }) },
+        initiateFetchFlag: true,
     });
 
     // api comment data
     const { data, isLoading, isError } = useFetch({
         api: "/api/reply",
         request: { method: "POST", body: JSON.stringify({ id: cardId }) },
+        initiateFetchFlag: true,
     });
-    // getting active post information from the client-side store
-    const { activePost } = useStore();
-    const { id: currentUserId } = useStore((state) => state.currentUserData);
 
+    // setRefreshRepliesFlag(() => false);
+    // setRefreshRepliesBranchId(null);
+
+    // forming replies list
     let content;
     if (isLoading) {
         content = replyCount ? (
