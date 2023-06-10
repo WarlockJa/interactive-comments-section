@@ -5,20 +5,24 @@ import fixImagePath from "../utils/fixImagePath";
 import useStore from "@/store/store";
 import { useEffect, useRef, useState } from "react";
 import { IHandleCommentPost } from "../api/comment/route";
+import useFetch from "../hooks/useFetch";
 
 const defaultUserImage = "./images/avatars/image-juliusomo.png";
 
 const handleCommentPost = async (props: IHandleCommentPost) => {
-    const postCommentQuery = props;
-
-    // fire and forget change likes/dislikes array for the current user in the DB
-    fetch("/api/comment", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(postCommentQuery),
-    });
+    // const { authorId, content, repliesToPostId } = props
+    // const { isError, isLoading, data } = useFetch({
+    //     api: "/api/comment",
+    //     request: { method: "POST", body: JSON.stringify(props) },
+    // });
+    // // fire and forget change likes/dislikes array for the current user in the DB
+    // fetch("/api/comment", {
+    //     method: "POST",
+    //     headers: {
+    //         "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify(postCommentQuery),
+    // });
 };
 
 const AddComment = () => {
@@ -35,16 +39,41 @@ const AddComment = () => {
         activePostUser,
         commentText,
         currentUserData,
-        commentsThreadId,
+        setRefreshRepliesBranchId,
     } = useStore();
     const currentUserImage = png ? png : webp ? webp : defaultUserImage;
     const isCurrentUsersPost = currentUserData.username === activePostUser;
+
     // text area content state
     const [replyText, setReplyText] = useState(
         isCurrentUsersPost ? commentText : `@${activePostUser} ${commentText}`
     );
+
+    // api request inititation flag
+    const [startFetch, setStartFetch] = useState(false);
+    const { isError, isLoading, data } = useFetch({
+        api: "/api/comment",
+        request: {
+            method: "POST",
+            body: JSON.stringify({
+                authorId: currentUserData.id,
+                repliesToPostId: activePost!, // activePost is always defined when AddComment component is rendered
+                content: replyText,
+            }),
+        },
+        initiateFetchFlag: startFetch,
+    });
+
+    // if (data) {
+    //     setRefreshRepliesBranchId(activePost!);
+    // }
+
     return (
-        <section className="addComment" ref={commentRef}>
+        <section
+            className="addComment"
+            ref={commentRef}
+            style={startFetch ? { opacity: 0.5 } : {}}
+        >
             <textarea
                 className="addComment--textarea"
                 placeholder="Add a comment..."
@@ -63,14 +92,15 @@ const AddComment = () => {
             <div className="addComment__buttonWrapper">
                 <button
                     className="addComment--sendButton"
-                    onClick={() =>
-                        handleCommentPost({
-                            id: commentsThreadId,
-                            rootCommentId: activePost!, // activePost will always be defined when AddComment component is rendered
-                            content: replyText,
-                            user: currentUserData,
-                        })
+                    onClick={
+                        () => setStartFetch(true)
+                        // handleCommentPost({
+                        //     authorId: currentUserData.id,
+                        //     repliesToPostId: activePost!, // activePost is always defined when AddComment component is rendered
+                        //     content: replyText,
+                        // })
                     }
+                    disabled={startFetch}
                 >
                     {isCurrentUsersPost ? "UPDATE" : "SEND"}
                 </button>

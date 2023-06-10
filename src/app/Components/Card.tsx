@@ -54,15 +54,18 @@ const Card = ({ cardData }: { cardData: ICommentData }) => {
                 id: cardData.authorId,
             }),
         },
+        initiateFetchFlag: true,
     });
 
     // getting client-side store data
-    const { id: currentUserId, userRatings } = useStore(
-        (state) => state.currentUserData
-    );
+    const {
+        id: currentUserId,
+        username: currentUsername,
+        userRatings,
+    } = useStore((state) => state.currentUserData);
     const { setActivePost, setCommentText, setActivePostUser } = useStore();
     // current user is the author of the post flag
-    const ownersCard = data?.authorId === currentUserId;
+    const ownersCard = data?.username === currentUsername;
     // rating tracking state
     const [ratingChange, setRatingChange] = useState<number>(
         getUserCardRating({

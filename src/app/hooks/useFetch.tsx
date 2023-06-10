@@ -4,8 +4,7 @@ import { RequestInit } from "next/dist/server/web/spec-extension/request";
 interface IUseFetchProps {
     api: string;
     request: RequestInit;
-    headers?: string;
-    body?: string;
+    initiateFetchFlag: boolean;
 }
 
 const useFetch = (props: IUseFetchProps) => {
@@ -15,13 +14,18 @@ const useFetch = (props: IUseFetchProps) => {
     const [isError, setIsError] = useState<Error | null>(null);
 
     useEffect(() => {
-        fetch(props.api, props.request)
-            .then((response) => response.json())
-            .then((result) => setData(result))
-            .catch((error) => {
-                setIsError(error.message);
-            })
-            .finally(() => setIsLoading(false));
+        if (props.initiateFetchFlag) {
+            fetch(props.api, props.request)
+                .then((response) => response.json())
+                .then((result) => setData(result))
+                .catch((error) => {
+                    setIsError(error.message);
+                })
+                .finally(() => {
+                    setIsLoading(false);
+                    console.log(props);
+                });
+        }
     }, [JSON.stringify(props)]);
 
     return { isError, isLoading, data };

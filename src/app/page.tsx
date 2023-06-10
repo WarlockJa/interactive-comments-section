@@ -30,8 +30,11 @@ export default async function Home() {
     );
     return (
         <main className={styles.main}>
-            {/* passing current user info to the client-side store */}
-            <StoreInitializer currentUserData={currentUser} />
+            {/* passing DB info to the client-side store */}
+            <StoreInitializer
+                currentUserData={currentUser}
+                comments={comments}
+            />
             {content}
         </main>
     );
