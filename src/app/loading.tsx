@@ -1,12 +1,13 @@
 import CardSkeleton from "./Components/CardSkeleton";
-import styles from "./page.module.css";
+import styles from "./page.module.scss";
 
 export default function Loading() {
     return (
         <main className={styles.main}>
-            <CardSkeleton />
-            <CardSkeleton />
-            <CardSkeleton />
+            <div className={styles.wrapper}>
+                <CardSkeleton />
+                <CardSkeleton />
+            </div>
         </main>
     );
 }

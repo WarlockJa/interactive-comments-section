@@ -1,4 +1,4 @@
-import styles from "./page.module.css";
+import styles from "./page.module.scss";
 import React from "react";
 import { ICommentData, initDB } from "./utils/initDB";
 import StoreInitializer from "./Components/StoreInitializer";
@@ -12,7 +12,7 @@ export default async function Home() {
     if (!currentUser || !comments)
         throw new Error("There was an error connecting to the database");
 
-    // initializing server side store
+    // initializing server side store. not needed in this project
     // useStore.setState({ commentsThreadId: data.id });
 
     // processing fetched data
@@ -35,7 +35,7 @@ export default async function Home() {
                 currentUserData={currentUser}
                 comments={comments}
             />
-            {content}
+            <div className={styles.wrapper}>{content}</div>
         </main>
     );
 }

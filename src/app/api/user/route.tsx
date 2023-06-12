@@ -1,18 +1,15 @@
 import { NextRequest } from "next/server";
 import { prisma } from "../../../../db/globalPrisma";
 
-interface IPostUserRequestBody {
-    id: string;
-}
-
-export async function POST(req: NextRequest) {
-    const body: IPostUserRequestBody = await req.json();
-    if (!body.id) return new Response("User id required", { status: 400 });
+// get user data
+export async function GET(req: NextRequest) {
+    const id = req.nextUrl.searchParams.get("id");
+    if (!id) return new Response("User id required", { status: 400 });
 
     try {
         const user = await prisma.user.findUnique({
             where: {
-                id: body.id,
+                id,
             },
         });
         return user

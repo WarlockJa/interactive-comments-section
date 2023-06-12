@@ -8,6 +8,7 @@ export interface IChangeRatingBody {
     rating: number;
 }
 
+// new ratings array generator its functionality is tested with test/api/rating/tests/api/rating.tsx
 export const getNewRatingsArray = (
     body: IChangeRatingBody,
     userRatings: IUserRatings[]
@@ -39,6 +40,7 @@ export const getNewRatingsArray = (
     return result;
 };
 
+// updating user rating array in the DB
 export async function PUT(req: NextRequest) {
     const body: IChangeRatingBody = await req.json();
 

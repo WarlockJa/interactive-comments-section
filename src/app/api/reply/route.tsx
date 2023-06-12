@@ -25,19 +25,15 @@ export async function POST(req: NextRequest) {
     }
 }
 
-interface IPutReplyRequestBody {
-    id: string;
-}
-
 // getting replies count
-export async function PUT(req: NextRequest) {
-    const body: IPutReplyRequestBody = await req.json();
-    if (!body.id) return new Response("Comment id required", { status: 400 });
+export async function GET(req: NextRequest) {
+    const commentId: string | null = req.nextUrl.searchParams.get("id");
+    if (!commentId) return new Response("Comment id required", { status: 400 });
 
     try {
         const replyCount = await prisma.post.count({
             where: {
-                repliesToPostId: body.id,
+                repliesToPostId: commentId,
             },
         });
         return !isNaN(replyCount)

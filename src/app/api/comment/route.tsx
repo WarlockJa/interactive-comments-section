@@ -1,5 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 import { prisma } from "../../../../db/globalPrisma";
+
+// this route is unused as it is replaced with a server action
+// located at @/app/lib/actions
 
 export interface IHandleCommentPost {
     repliesToPostId: string; // root comment id
@@ -15,7 +18,7 @@ export async function POST(req: NextRequest) {
 
     try {
         // creating a new post with relations to the user and the root post
-        await prisma.post.create({
+        const result = await prisma.post.create({
             data: {
                 content: body.content,
                 authorId: body.authorId,
@@ -23,12 +26,10 @@ export async function POST(req: NextRequest) {
             },
         });
 
-        return new Response("Post created", {
+        return new Response(JSON.stringify(result), {
             status: 200,
         });
     } catch (error) {
-        // return res.status(500).json({ message: error });
-        console.log(error);
         return new Response(JSON.stringify(error), {
             status: 500,
         });

@@ -11,6 +11,7 @@ function StoreInitializer({
     currentUserData: IUserData;
     comments: ICommentData[];
 }) {
+    // using ref to limit store initialization to one time
     const initialized = useRef(false);
     if (!initialized.current) {
         useStore.setState({ currentUserData, comments });

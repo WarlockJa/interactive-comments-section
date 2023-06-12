@@ -2,6 +2,7 @@ import "./cardskeleton.scss";
 import "./loadinganimation.scss";
 import "./card.scss";
 
+// loading stub
 const CardSkeleton = () => {
     return (
         <div className="cardSkeleton card">

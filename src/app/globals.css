@@ -1,5 +1,5 @@
 :root {
-    --max-width: 1100px;
+    --max-width: 730px;
     /* Primary colors */
     --Moderateblue: hsl(238, 40%, 52%);
     --SoftRed: hsl(358, 79%, 66%);
@@ -42,6 +42,16 @@
     --clr-font-reply: var(--Darkblue);
     --clr-bg-replyButton: var(--Moderateblue);
     --clr-font-replyButton: var(--White);
+
+    --clr-bg-unfoldButton: rgb(226, 232, 236);
+    --clr-bg-unfoldButton-hover: var(--LightgrayishBlue);
+    --clr-font-unfoldButton: var(var(--LightgrayishBlue));
+
+    --clr-bg-deletePopup: #444a;
+    --clr-font-deletePopupHeader: var(--Darkblue);
+    --clr-font-deletePopupButtons: var(--White);
+    --clr-bg-deletePopup-noButton: var(--Darkblue);
+    --clr-bg-deletePopup-yesButton: var(--SoftRed);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -63,6 +73,10 @@ body {
     margin: 0;
     max-width: 100vw;
     overflow-x: hidden;
+}
+
+.disabled {
+    opacity: 0.3;
 }
 
 @media (prefers-color-scheme: dark) {

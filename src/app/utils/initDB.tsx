@@ -2,6 +2,10 @@ import initData from "../../../data.json";
 import { prisma } from "../../../db/globalPrisma";
 import { subDays, subMonths, subWeeks } from "date-fns";
 
+// DB initialization module
+// creates a new set of data for testing and sets a thirty minutes timer
+// after which DB will be reinitialized upon a new request
+
 export interface IUserRatings {
     id: String;
     rating: number;
@@ -36,20 +40,26 @@ const initDB = async () => {
         // client DB mutation grace period
         const refreshTimestamp = await prisma.reset.findFirst();
         // comparing current time with saved timestamp in the database
-        // if ten minutes (10 * 60 * 1000) has passed reinitialize the DB
+        // if thirty minutes (30 * 60 * 1000) has passed reinitialize the DB
         // otherwise use the data currently present in the DB allowing client
         // to access mutated data and/or refresh the page
         if (
             !refreshTimestamp?.resetTimer ||
             new Date(refreshTimestamp.resetTimer).getTime() <
-                new Date().getTime() - 10 * 60 * 1000
+                new Date().getTime() - 30 * 60 * 1000
         ) {
             // DB reinitialization
             // deleting post collection with a raw mongodb command due to existing self-relations
             // and prisma not supporting onDelete: Cascade for MongoDB
-            await prisma.$runCommandRaw({
-                drop: "post",
-            });
+            try {
+                // in case post got deleted but initialization wasn't complete
+                await prisma.$runCommandRaw({
+                    drop: "post",
+                });
+            } catch (error) {
+                console.log(error);
+            }
+
             await prisma.$transaction([
                 prisma.user.deleteMany(),
                 prisma.reset.deleteMany(),
@@ -155,7 +165,11 @@ const initDB = async () => {
             },
         });
 
-        comments = await prisma.post.findMany();
+        comments = await prisma.post.findMany({
+            where: {
+                repliesToPostId: undefined,
+            },
+        });
     } catch (error) {
         console.log(error);
     }

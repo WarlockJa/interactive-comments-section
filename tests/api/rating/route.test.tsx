@@ -1,11 +1,13 @@
-import { IChangeRatingBody } from "@/app/api/comment/route";
-import { getNewRatingsArray } from "@/app/api/ratings/route";
+import {
+    IChangeRatingBody,
+    getNewRatingsArray,
+} from "../../../src/app/api/rating/route";
 import { IUserRatings } from "@/app/utils/initDB";
 
 test("Add item to the empty array", () => {
     const userRatings: IUserRatings[] = [];
     const body: IChangeRatingBody = {
-        id: "thread_uuidv4",
+        userId: "thread_uuidv4",
         postId: "post_uuidv4",
         rating: 1,
     };
@@ -25,7 +27,7 @@ test("Add item to the non-empty array", () => {
         },
     ];
     const body: IChangeRatingBody = {
-        id: "thread_uuidv4",
+        userId: "thread_uuidv4",
         postId: "post1_uuidv4",
         rating: 1,
     };
@@ -49,7 +51,7 @@ test("Update item in the array", () => {
         },
     ];
     const body: IChangeRatingBody = {
-        id: "thread_uuidv4",
+        userId: "thread_uuidv4",
         postId: "post_uuidv4",
         rating: -1,
     };
@@ -69,7 +71,7 @@ test("Remove item in the array by passing rating 0", () => {
         },
     ];
     const body: IChangeRatingBody = {
-        id: "thread_uuidv4",
+        userId: "thread_uuidv4",
         postId: "post_uuidv4",
         rating: 0,
     };
@@ -79,7 +81,7 @@ test("Remove item in the array by passing rating 0", () => {
 test("Pass rating 0 item into an empty array", () => {
     const userRatings: IUserRatings[] = [];
     const body: IChangeRatingBody = {
-        id: "thread_uuidv4",
+        userId: "thread_uuidv4",
         postId: "post_uuidv4",
         rating: 0,
     };
@@ -89,7 +91,7 @@ test("Pass rating 0 item into an empty array", () => {
 test("Pass improper rating 12 item", () => {
     const userRatings: IUserRatings[] = [];
     const body: IChangeRatingBody = {
-        id: "thread_uuidv4",
+        userId: "thread_uuidv4",
         postId: "post_uuidv4",
         rating: 12,
     };
@@ -104,7 +106,7 @@ test("Pass improper rating 12 item", () => {
 test("Pass improper rating -12 item", () => {
     const userRatings: IUserRatings[] = [];
     const body: IChangeRatingBody = {
-        id: "thread_uuidv4",
+        userId: "thread_uuidv4",
         postId: "post_uuidv4",
         rating: -12,
     };
@@ -119,7 +121,7 @@ test("Pass improper rating -12 item", () => {
 test("Pass improper rating 'aaaa' item", () => {
     const userRatings: IUserRatings[] = [];
     const body: IChangeRatingBody = {
-        id: "thread_uuidv4",
+        userId: "thread_uuidv4",
         postId: "post_uuidv4",
         // @ts-expect-error
         rating: "aaa",
@@ -131,7 +133,7 @@ test("Pass an undefined array", () => {
     // @ts-expect-error
     const userRatings: undefined;
     const body: IChangeRatingBody = {
-        id: "thread_uuidv4",
+        userId: "thread_uuidv4",
         postId: "post_uuidv4",
         rating: 1,
     };

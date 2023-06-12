@@ -1,10 +1,9 @@
 import { ICommentData, IUserData, IUserRatings } from "@/app/utils/initDB";
 import { create } from "zustand";
 
-interface IReplyData {
+interface IRepliesCount {
     commentId: string;
-    replyCount: number;
-    reply: ICommentData;
+    count: number;
 }
 
 interface IStore {
@@ -14,32 +13,38 @@ interface IStore {
     setActivePostUser: (activePostUser: string) => void;
     commentText: string;
     setCommentText: (commentText: string) => void;
-    // refreshRepliesBranchId: string | null;
-    // setRefreshRepliesBranchId: (refreshRepliesBranchId: string | null) => void;
-    // setCurrentUserData: (currentUserData: IUserData) => void;
+    repliesCount: IRepliesCount[];
+    addReplyCount: (newReplyCount: IRepliesCount) => void;
+    increaseReplyCount: (commentId: string) => void;
+    decreaseReplyCount: (commentId: string) => void;
+    removeReplyCount: (commentId: string) => void;
     currentUserData: IUserData;
     comments: ICommentData[];
-    replies: IReplyData[];
+    addComments: (newComments: ICommentData[]) => void;
+    deleteComment: (commentId: string) => void;
+    updateComment: (commentId: string, newContent: string) => void;
+    users: IUserData[];
+    addUser: (user: IUserData) => void;
     setCurrentUserRatings: (currentUserRatings: IUserRatings[]) => void;
 }
 
 const useStore = create<IStore>((set) => ({
     activePost: undefined,
-    setActivePost: (activePost: string | undefined) =>
+    setActivePost: (activePost) =>
         set((state) => ({
             ...state,
             activePost,
         })),
 
     activePostUser: "",
-    setActivePostUser: (activePostUser: string) =>
+    setActivePostUser: (activePostUser) =>
         set((state) => ({
             ...state,
             activePostUser,
         })),
 
     commentText: "",
-    setCommentText: (commentText: string) =>
+    setCommentText: (commentText) =>
         set((state) => ({
             ...state,
             commentText,
@@ -55,8 +60,84 @@ const useStore = create<IStore>((set) => ({
         userRatings: [],
     },
 
+    repliesCount: [],
+    addReplyCount: (newReplyCount) => {
+        set((state) => ({
+            ...state,
+            repliesCount:
+                state.repliesCount.findIndex(
+                    (reply) => reply.commentId === newReplyCount.commentId
+                ) === -1
+                    ? [...state.repliesCount, newReplyCount]
+                    : state.repliesCount.map((reply) =>
+                          reply.commentId === newReplyCount.commentId
+                              ? newReplyCount
+                              : reply
+                      ),
+        }));
+    },
+    increaseReplyCount: (commentId) => {
+        set((state) => ({
+            ...state,
+            repliesCount: state.repliesCount.map((reply) =>
+                reply.commentId === commentId
+                    ? { ...reply, count: reply.count + 1 }
+                    : reply
+            ),
+        }));
+    },
+    decreaseReplyCount: (commentId) => {
+        set((state) => ({
+            ...state,
+            repliesCount: state.repliesCount.map((reply) =>
+                reply.commentId === commentId
+                    ? { ...reply, count: reply.count - 1 }
+                    : reply
+            ),
+        }));
+    },
+    removeReplyCount: (commentId) => {
+        set((state) => ({
+            ...state,
+            repliesCount: state.repliesCount.filter(
+                (reply) => reply.commentId !== commentId
+            ),
+        }));
+    },
+
     comments: [],
-    replies: [],
+    addComments: (newComments) => {
+        set((state) => ({
+            ...state,
+            comments: [...state.comments, ...newComments],
+        }));
+    },
+    deleteComment: (commentId) => {
+        set((state) => ({
+            ...state,
+            comments: state.comments.filter(
+                (comment) => comment.id !== commentId
+            ),
+        }));
+    },
+    updateComment: (commentId, newContent) => {
+        set((state) => ({
+            ...state,
+            comments: state.comments.map((comment) =>
+                comment.id === commentId
+                    ? { ...comment, content: newContent, updatedAt: new Date() }
+                    : comment
+            ),
+        }));
+    },
+
+    users: [],
+    addUser: (user) => {
+        set((state) => ({
+            ...state,
+            users: [...state.users, user],
+        }));
+    },
 
     // refreshRepliesBranchId: null,
     // setRefreshRepliesBranchId: (refreshRepliesBranchId) => {

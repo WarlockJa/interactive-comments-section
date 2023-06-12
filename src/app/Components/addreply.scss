@@ -1,3 +1,5 @@
+@use "../media.scss";
+
 .addComment {
     padding: 1em 1em 0.6em 1em;
     margin-top: 0.5em;
@@ -19,6 +21,7 @@
         outline: transparent;
         padding: 1em 1.5em;
         font-size: 1rem;
+        line-height: 1.5;
         font-family: inherit;
         color: var(--clr-font-reply);
         resize: none;
@@ -62,13 +65,46 @@
             font-weight: 700;
             padding: 0.9em 1.9em;
             border-radius: 8px;
-            width: 9em;
+            min-width: 6.5em;
             cursor: pointer;
             transition: opacity 200ms ease;
         }
         .addComment--sendButton:hover,
         .addComment--sendButton:focus {
             opacity: 0.5;
+        }
+    }
+
+    @include media.min-width(medium) {
+        grid-template-columns: auto 1fr auto;
+        grid-template-rows: 1fr;
+
+        padding: 1.5em;
+
+        .addComment--textarea {
+            grid-column: 2 / 3;
+        }
+
+        .addComment__avatarWrapper {
+            grid-column: 1 / 2;
+            grid-row: 1 / 2;
+
+            max-width: 2.5em;
+            margin-right: 0.5em;
+        }
+
+        .addComment__buttonWrapper {
+            grid-column: 3 / 4;
+            grid-row: 1 / 2;
+
+            margin-left: 0.5em;
+            align-items: flex-start;
+
+            .addComment--sendButton {
+                padding: 1em 0;
+                width: 100%;
+                font-size: 1rem;
+            }
         }
     }
 }

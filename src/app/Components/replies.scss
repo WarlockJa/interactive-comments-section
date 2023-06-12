@@ -1,7 +1,14 @@
+@use "../media.scss";
+
 .replies {
     padding-left: 1em;
     border-left: 2px solid var(--clr-border-reply);
 
     display: flex;
     flex-direction: column;
+
+    @include media.min-width(medium) {
+        padding-left: 2.5em;
+        margin-left: 2.5em;
+    }
 }

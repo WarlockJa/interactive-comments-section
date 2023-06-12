@@ -1,3 +1,5 @@
+@use "../media.scss";
+
 .card {
     margin-top: 1em;
     padding: 1em;
@@ -17,7 +19,7 @@
         gap: 1em;
 
         .card__header__imgWrapper {
-            max-width: 2em;
+            width: 2em;
 
             .card__header--avatar {
                 width: 100%;
@@ -57,6 +59,54 @@
         span {
             color: var(--clr-font-cardUsername);
             font-weight: 500;
+        }
+    }
+
+    .card__editComment {
+        grid-row: 2 / 3;
+        grid-column: 1 / 3;
+
+        .card__editComment--text {
+            width: 100%;
+            min-height: 7em;
+            border-radius: 8px;
+            border: 1px solid var(--clr-border-reply);
+            outline: transparent;
+            padding: 1em 1.5em;
+            font-size: 1rem;
+            line-height: 1.5;
+            font-family: inherit;
+            color: var(--clr-font-reply);
+            resize: none;
+            cursor: pointer;
+            transition: border 200ms ease;
+        }
+        .card__editComment--text:hover,
+        .card__editComment--text:focus {
+            border: 1px solid var(--clr-border-reply-hover);
+        }
+        .card__editComment--text::placeholder {
+            font-size: 1rem;
+        }
+
+        .card__editComment--button {
+            margin-top: 0.5em;
+            float: right;
+            border: transparent;
+            outline: transparent;
+            background-color: var(--clr-bg-replyButton);
+            color: var(--clr-font-replyButton);
+            font-size: 1rem;
+            font-weight: 700;
+            padding: 0.9em 0;
+            border-radius: 8px;
+            min-width: 6.5em;
+            cursor: pointer;
+            transition: opacity 200ms ease;
+        }
+        .card__editComment--button:hover,
+        .card__editComment--button:focus {
+            opacity: 0.5;
         }
     }
 
@@ -164,5 +214,48 @@
     .card__error {
         white-space: pre-line;
         word-wrap: break-word;
+    }
+
+    @include media.min-width(medium) {
+        grid-template-columns: 1fr 6fr auto;
+
+        .card__header {
+            grid-column: 2 / 3;
+        }
+
+        .card__comment {
+            grid-column: 2 / 4;
+            grid-row: 2 / 4;
+
+            padding-right: 1em;
+        }
+
+        .card__editComment {
+            grid-column: 2 / 4;
+            grid-row: 2 / 4;
+        }
+
+        .card__rating {
+            grid-column: 1 / 2;
+            grid-row: 1 / 4;
+
+            align-items: flex-start;
+
+            .card__rating__wrapper {
+                flex-direction: column;
+                gap: 0.8em;
+                padding: 0.5em 0.25em;
+                margin: 0.5em 1.5em 0 0.5em;
+            }
+        }
+
+        .card__interact {
+            grid-column: 3 / 4;
+            grid-row: 1 / 2;
+
+            .card__interact--buttonEdit {
+                margin-left: 1em;
+            }
+        }
     }
 }

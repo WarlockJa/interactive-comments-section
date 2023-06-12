@@ -1,0 +1,20 @@
+@use "../media.scss";
+
+.comment--button {
+    outline: transparent;
+    background-color: transparent;
+    border: transparent;
+    border-radius: 4px;
+    color: var(--clr-font-main);
+    background-color: var(--clr-bg-unfoldButton);
+
+    transition: color 200ms ease, background 200ms ease;
+
+    @include media.min-width(medium) {
+        margin-left: 2.5em;
+    }
+}
+.comment--button:hover,
+.comment--button:focus {
+    background-color: var(--clr-bg-unfoldButton-hover);
+}

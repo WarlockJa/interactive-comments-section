@@ -1,6 +1,7 @@
 import "./carduserskeleton.scss";
-import "./cardskeleton.scss";
+import "./loadinganimation.scss";
 
+// user data inside of the card loading stub
 const CardUserSkeleton = () => {
     return (
         <div className="card__cardUserSkeleton">
