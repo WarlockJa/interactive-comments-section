@@ -9,7 +9,10 @@ export interface IChangeRatingBody {
 }
 
 // new ratings array generator its functionality is tested with test/api/rating/tests/api/rating.tsx
-export const getNewRatingsArray = (
+// export is removed to satisfy vercel build maker
+// replace const getNewRatingsArray = ( with the commented line to run tests.
+// export const getNewRatingsArray = (
+const getNewRatingsArray = (
     body: IChangeRatingBody,
     userRatings: IUserRatings[]
 ) => {
