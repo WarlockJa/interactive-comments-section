@@ -19,7 +19,7 @@ const DeletePopup = ({
                 <h1 className="deletePopup--title">Delete comment</h1>
                 <p className="deletePopup--text">
                     Are you sure you want to delete this comment? This will
-                    remove the comment and it can't be undone.
+                    remove the comment and it can&apos;t be undone.
                 </p>
                 <div className="deletePopup__controls">
                     <button
