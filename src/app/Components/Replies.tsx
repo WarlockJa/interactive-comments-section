@@ -46,7 +46,7 @@ const Replies = ({
     } else {
         content = data
             .sort((a: ICommentData, b: ICommentData) =>
-                a.updatedAt < b.updatedAt ? 1 : -1
+                a.updatedAt > b.updatedAt ? 1 : -1
             )
             .map((reply: ICommentData) => (
                 <React.Fragment key={reply.id}>

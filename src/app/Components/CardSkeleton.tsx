@@ -18,7 +18,13 @@ const CardSkeleton = () => {
                 <div className="cardSkeleton--item cardSkeleton__comment--line"></div>
             </div>
 
-            <div className="cardSkeleton--item cardSkeleton__rating card__rating"></div>
+            <div className="cardSkeleton__rating card__rating">
+                <div className="card__rating__wrapper">
+                    <div className="card__rating--filler"></div>
+                    <div className="card__rating--filler"></div>
+                    <div className="card__rating--filler"></div>
+                </div>
+            </div>
             <div className="cardSkeleton--item cardSkeleton__interact card__interact"></div>
             <div className="cardSkeleton--flashAnimation loadingAnimation"></div>
         </div>

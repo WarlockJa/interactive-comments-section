@@ -3,6 +3,8 @@ import useStore from "@/store/store";
 const commentTextIntoTags = (text: string) => {
     const { users } = useStore();
 
+    console.log("comment conversion");
+
     const isUser = (name: string) => {
         const userName = name.split("@")[1];
         return users.find((user) => user.username === userName) ? true : false;

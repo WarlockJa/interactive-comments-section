@@ -25,9 +25,14 @@
     }
 
     .cardSkeleton__rating {
-        height: 2.5em;
-        width: 6em;
         border-radius: var(--card-border-radius-rating);
+
+        .card__rating__wrapper {
+            .card__rating--filler {
+                height: 1em;
+                width: 1.9em;
+            }
+        }
     }
 
     .cardSkeleton__interact {

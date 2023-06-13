@@ -16,7 +16,9 @@
     --clr-bg-main: var(--VerylightGray);
     --clr-bg-card: var(--White);
 
-    --clr-card-skeleton: 255;
+    --clr-card-skeletonR: 255;
+    --clr-card-skeletonG: 255;
+    --clr-card-skeletonG: 255;
     --card-border-radius-rating: 10px;
     --clr-bg-skeletalLoading: #e2e5e7;
 
@@ -59,7 +61,12 @@
         --clr-font-main: var(--Lightgray);
         --clr-bg-main: #3b3b3b;
         --clr-bg-card: var(--Darkblue);
-        --clr-card-skeleton: 59;
+
+        --clr-card-skeletonR: 50;
+        --clr-card-skeletonG: 65;
+        --clr-card-skeletonB: 82;
+        --clr-bg-skeletalLoading: var(--GrayishBlue);
+
         --clr-font-cardAuthorName: var(--LightgrayishBlue);
 
         --clr-bg-cardRating: var(--GrayishBlue);
