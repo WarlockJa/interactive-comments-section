@@ -20,7 +20,6 @@ const AddReply = () => {
     const {
         activePost,
         setActivePost,
-        activePostUser,
         commentText,
         setCommentText,
         currentUserData,
@@ -29,7 +28,6 @@ const AddReply = () => {
         addComments,
     } = useStore();
     const currentUserImage = png ? png : webp ? webp : defaultUserImage;
-    const isCurrentUsersPost = currentUserData.username === activePostUser;
 
     // flag to disable input if submit button is pressed
     const [startFetch, setStartFetch] = useState(false);
@@ -44,7 +42,7 @@ const AddReply = () => {
                 name="textarea"
                 className="addComment--textarea"
                 placeholder="Add a comment..."
-                defaultValue={`@${activePostUser} ${commentText}`}
+                // defaultValue={`@${activePostUser} ${commentText}`}
                 value={commentText}
                 onChange={(e) => setCommentText(e.target.value)}
             ></textarea>

@@ -56,9 +56,23 @@
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --foreground-rgb: 255, 255, 255;
-        --background-start-rgb: 0, 0, 0;
-        --background-end-rgb: 0, 0, 0;
+        --clr-font-main: var(--Lightgray);
+        --clr-bg-main: #3b3b3b;
+        --clr-bg-card: var(--Darkblue);
+        --clr-card-skeleton: 59;
+        --clr-font-cardAuthorName: var(--LightgrayishBlue);
+
+        --clr-bg-cardRating: var(--GrayishBlue);
+        --clr-font-cardRating: var(--Lightgray);
+
+        --clr-border-reply: var(--GrayishBlue);
+        --clr-border-reply-hover: var(--Moderateblue);
+        --clr-font-reply: var(--Lightgray);
+
+        --clr-bg-unfoldButton: var(--GrayishBlue);
+        --clr-bg-unfoldButton-hover: var(--Moderateblue);
+
+        --clr-font-deletePopupHeader: var(--Moderateblue);
     }
 }
 

@@ -10,7 +10,6 @@ interface IStore {
     activePost: string | undefined;
     setActivePost: (activePost: string | undefined) => void;
     activePostUser: string;
-    setActivePostUser: (activePostUser: string) => void;
     commentText: string;
     setCommentText: (commentText: string) => void;
     repliesCount: IRepliesCount[];
@@ -37,11 +36,6 @@ const useStore = create<IStore>((set) => ({
         })),
 
     activePostUser: "",
-    setActivePostUser: (activePostUser) =>
-        set((state) => ({
-            ...state,
-            activePostUser,
-        })),
 
     commentText: "",
     setCommentText: (commentText) =>

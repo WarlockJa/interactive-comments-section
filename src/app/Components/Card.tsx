@@ -15,6 +15,7 @@ import { IChangeRatingBody } from "../api/rating/route";
 import CardUserSkeleton from "./CardUserSkeleton";
 import DeletePopup from "./DeletePopup";
 import { postUpdateAction } from "@/lib/actions";
+import { commentTextIntoTags } from "../utils/commentTextIntoTags";
 
 // finding if user rated this post before
 const getUserCardRating = ({
@@ -62,7 +63,6 @@ const Card = ({
         setActivePost,
         commentText,
         setCommentText,
-        setActivePostUser,
         activePost,
         users,
         addUser,
@@ -111,24 +111,17 @@ const Card = ({
     };
 
     // providing/changing data about activePost in the store for the AddReply component to render
-    const handleEditReply = ({
-        id,
-        text,
-        user,
-    }: {
-        id: string;
-        text: string;
-        user: string;
-    }) => {
+    const handleEditReply = ({ id, text }: { id: string; text: string }) => {
         if (id === activePost) {
             setActivePost(undefined);
         } else {
             unfoldReplies && unfoldReplies(false);
             setCommentText(text);
             setActivePost(id);
-            setActivePostUser(user);
         }
     };
+
+    const testContent = commentTextIntoTags(cardData.content);
 
     let content;
     if (isError) {
@@ -215,7 +208,8 @@ const Card = ({
                             </button>
                         </div>
                     ) : (
-                        <p className="card__comment">{cardData.content}</p>
+                        // <p className="card__comment">{cardData.content}</p>
+                        <p className="card__comment">{testContent}</p>
                     )}
                     <div className="card__rating">
                         <div className="card__rating__wrapper">
@@ -286,7 +280,6 @@ const Card = ({
                                         handleEditReply({
                                             id: cardData.id,
                                             text: cardData.content,
-                                            user: data!.username,
                                         });
                                         setActivePost(
                                             activePost === cardData.id
@@ -311,8 +304,7 @@ const Card = ({
                                     e.preventDefault();
                                     handleEditReply({
                                         id: cardData.id,
-                                        text: "",
-                                        user: data!.username,
+                                        text: `@${data!.username} `,
                                     });
                                 }}
                                 disabled={!data}
