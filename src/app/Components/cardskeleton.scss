@@ -1,5 +1,6 @@
 .cardSkeleton {
     position: relative;
+    grid-template-columns: 1fr 6fr 1fr;
 
     .cardSkeleton__header {
         .cardSkeleton__header--image {

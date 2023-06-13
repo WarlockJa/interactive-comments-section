@@ -10,7 +10,7 @@ import Image from "next/image";
 const error = ({ error }: { error: Error }) => {
     return (
         <main className={`${styles.error} ${styles.main}`}>
-            <h1>M-m-m-yes. 'Tis but an error. *sips tea spiffingly*</h1>
+            <h1>M-m-m-yes. &apos;Tis but an error. *sips tea spiffingly*</h1>
             <p>{error.message}</p>
             <Image src={ErrorImage} alt="error" />
             <button

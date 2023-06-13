@@ -22,14 +22,13 @@ const Comment = ({ commentData }: { commentData: ICommentData }) => {
     // fetching initial reply count
     useEffect(() => {
         if (!data) {
-            console.log("Fetching count ", commentData.id);
             fetch(`/api/reply?id=${commentData.id}`)
                 .then((result) => result.json())
                 .then((json) =>
                     addReplyCount({ commentId: commentData.id, count: json })
                 );
         }
-    }, []);
+    });
 
     // generating replies list
     const content = (

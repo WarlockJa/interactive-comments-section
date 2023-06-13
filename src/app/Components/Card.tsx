@@ -15,7 +15,7 @@ import { IChangeRatingBody } from "../api/rating/route";
 import CardUserSkeleton from "./CardUserSkeleton";
 import DeletePopup from "./DeletePopup";
 import { postUpdateAction } from "@/lib/actions";
-import { commentTextIntoTags } from "../utils/commentTextIntoTags";
+import { useCommentTextIntoTags } from "../utils/useCommentTextIntoTags";
 
 // finding if user rated this post before
 const getUserCardRating = ({
@@ -82,13 +82,12 @@ const Card = ({
     // fetching initial user data
     useEffect(() => {
         if (!data) {
-            console.log("Fetching user ", cardData.authorId);
             fetch(`/api/user?id=${cardData.authorId}`)
                 .then((result) => result.json())
                 .then((json) => addUser(json))
                 .catch((error) => setIsError(error));
         }
-    }, []);
+    });
 
     // current user is the author of the post flag
     const ownersCard = data?.username === currentUsername;
@@ -121,7 +120,7 @@ const Card = ({
         }
     };
 
-    const testContent = commentTextIntoTags(cardData.content);
+    const testContent = useCommentTextIntoTags(cardData.content);
 
     let content;
     if (isError) {

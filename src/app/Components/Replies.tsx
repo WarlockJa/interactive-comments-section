@@ -24,7 +24,6 @@ const Replies = ({
 
     useEffect(() => {
         if (!data) {
-            console.log(comments);
             fetch("/api/reply", {
                 method: "POST",
                 body: JSON.stringify({ id: cardId }),
@@ -33,7 +32,7 @@ const Replies = ({
                 .then((json) => addComments(json))
                 .catch((error) => setIsError(error));
         }
-    }, []);
+    });
 
     // forming replies list
     let content;

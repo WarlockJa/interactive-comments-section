@@ -1,9 +1,7 @@
 import useStore from "@/store/store";
 
-const commentTextIntoTags = (text: string) => {
+const useCommentTextIntoTags = (text: string) => {
     const { users } = useStore();
-
-    console.log("comment conversion");
 
     const isUser = (name: string) => {
         const userName = name.split("@")[1];
@@ -13,7 +11,7 @@ const commentTextIntoTags = (text: string) => {
     const result = text.split(regEx).map((item) => {
         return item[0] === "@" ? (
             isUser(item) ? (
-                <span>{item}</span>
+                <span key={item}>{item}</span>
             ) : (
                 item
             )
@@ -25,4 +23,4 @@ const commentTextIntoTags = (text: string) => {
     return result;
 };
 
-export { commentTextIntoTags };
+export { useCommentTextIntoTags };
