@@ -7,11 +7,10 @@ This is a solution to the [Interactive comments section challenge on Frontend Me
 -   [Overview](#overview)
     -   [The challenge](#the-challenge)
     -   [Screenshot](#screenshot)
-    -   [Links](#links)
 -   [My process](#my-process)
+    -   [About](#about)
     -   [Built with](#built-with)
     -   [What I learned](#what-i-learned)
-    -   [Continued development](#continued-development)
     -   [Useful resources](#useful-resources)
 -   [Author](#author)
 
@@ -34,10 +33,13 @@ Users should be able to:
 
 ### Links
 
--   Solution URL: [Add solution URL here](https://your-solution-url.com)
--   Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+-   Solution URL: [GitHub](https://github.com/WarlockJa/interactive-comments-section)
+-   Live Site URL: [vercel](https://interactive-comments-section-1nzcshuxh-warlockja.vercel.app/)
 
 ## My process
+
+### About
+Important notice this project uses MongoDB database which is reinitialized every 30 minutes. So if you receive errors or some data is missing it might be that the timer has run out and you need to refresh the page. During the 30 minutes "grace period" you can refresh the page and see all your comments and ratings refetched. It is done to maintain db in close to the design look while allowing to demonstrate its function. I've took the liberty of adjusting design a little bit in order to highlight the process of independent data fetching for each reply branch. Also, this project is by design used by the same user on every connection, without protection from multiple instances of access to the DB, so I have no idea how that would work if several people changing data at once. Might be fun, likely to cause errors, chances of that actually happening - slim. Thank you for reading this!
 
 ### Built with
 
